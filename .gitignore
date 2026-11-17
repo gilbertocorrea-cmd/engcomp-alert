@@ -1,41 +1,79 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Evito versionar dependências, arquivos temporários e configurações locais.
 
-# dependencies
+# Ignoro as dependências que instalo pelo npm.
 node_modules/
 
-# Expo
+# Ignoro os arquivos locais e as saídas de compilação do Expo.
 .expo/
 dist/
 web-build/
 expo-env.d.ts
 
-# Native
+# Mantenho fora do Git os arquivos nativos temporários e de assinatura.
 .kotlin/
 *.orig.*
 *.jks
+*.keystore
 *.p8
 *.p12
+*.pfx
 *.key
 *.mobileprovision
+*.provisionprofile
+*.pem
+*.der
+*.csr
+id_rsa
+id_ed25519
 
-# Metro
+# Ignoro os arquivos temporários do Metro.
 .metro-health-check*
 
-# debug
+# Ignoro os registros de depuração dos gerenciadores de pacotes.
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
 
-# macOS
+# Ignoro metadados locais do sistema operacional.
 .DS_Store
-*.pem
+Thumbs.db
 
-# local env files
-.env*.local
+# Protejo os arquivos de ambiente, inclusive .env e .env.production.
+.env
+.env.*
+.envrc
+# Versiono apenas modelos que preencho sem senhas ou tokens reais.
+!.env.example
+!.env.sample
+!.env.template
 
-# typescript
+# Mantenho credenciais de build, contas de serviço e tokens fora do Git.
+credentials.json
+service-account*.json
+serviceAccount*.json
+*-firebase-adminsdk-*.json
+.npmrc
+.netrc
+.pypirc
+.aws/
+.ssh/
+.secrets/
+secrets/
+
+# Ignoro pacotes compilados e cópias locais que podem carregar dados privados.
+*.apk
+*.aab
+*.ipa
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+
+# Ignoro o cache de compilação do TypeScript.
 *.tsbuildinfo
 
-# generated native folders
+# Ignoro as pastas nativas que podem ser geradas pelo Expo.
 /ios
 /android

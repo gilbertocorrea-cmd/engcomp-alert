@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-labelledby="title desc">
+  <title id="title">EngComp Alert — Avisos em tempo real</title>
+  <desc id="desc">Banner azul escuro com circuitos em ciano, um núcleo circular e conexões representando a transmissão de avisos.</desc>
+  <defs>
+    <radialGradient id="bg"><stop stop-color="#12324b"/><stop offset="1" stop-color="#060c19"/></radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#163246" stroke-width=".6"/></pattern>
+  </defs>
+  <rect width="1280" height="360" rx="16" fill="url(#bg)"/>
+  <rect width="1280" height="360" rx="16" fill="url(#grid)"/>
+  <g fill="none" stroke="#00d8ff">
+    <path d="M28 72V28H150M1130 28h122v44M28 288v44h122M1130 332h122v-44" stroke-width="2"/>
+    <path d="M55 118h68l40 40h58M55 242h68l40-40h58M397 158h66l40-40h55M397 202h66l40 40h55" opacity=".5"/>
+    <circle cx="310" cy="180" r="105" opacity=".25"/>
+    <circle cx="310" cy="180" r="88" stroke-width="3" stroke-dasharray="125 18 30 18"/>
+    <circle cx="310" cy="180" r="69" opacity=".55"/>
+    <circle cx="310" cy="180" r="53" stroke="#3ecf8e" stroke-width="2"/>
+    <path d="M285 191h50l-8-12v-15a17 17 0 0 0-34 0v15zM303 202h14" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+  <g fill="#3ecf8e"><circle cx="55" cy="118" r="4"/><circle cx="55" cy="242" r="4"/><circle cx="558" cy="118" r="4"/><circle cx="558" cy="242" r="4"/></g>
+  <g font-family="monospace">
+    <text x="610" y="116" fill="#3ecf8e" font-size="15" letter-spacing="3">MOBILE_009 // REALTIME</text>
+    <text x="606" y="178" fill="#edfaff" font-size="45" font-weight="bold" letter-spacing="4">ENGCOMP ALERT</text>
+    <text x="610" y="220" fill="#86d5ed" font-size="19" letter-spacing="2">AVISOS EM TEMPO REAL</text>
+    <text x="610" y="264" fill="#7d95ae" font-size="13" letter-spacing="2">REACT NATIVE • EXPO • SUPABASE</text>
+  </g>
+</svg>
