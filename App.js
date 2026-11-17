@@ -34,7 +34,13 @@ export default function App() {
       )
       .subscribe((state) => {
         // Atualizo o texto da tela quando recebo a confirmação da inscrição no canal.
-        if (state === 'SUBSCRIBED') setStatus('🟢 Conectado e Escutando Avisos');
+        if (state === 'SUBSCRIBED') {
+          setStatus('🟢 Conectado e Escutando Avisos');
+        } else if (state === 'CHANNEL_ERROR' || state === 'TIMED_OUT') {
+          setStatus('🔴 Falha na conexão. Verifique a internet e o Supabase.');
+        } else if (state === 'CLOSED') {
+          setStatus('⚪ Conexão encerrada');
+        }
       });
 
     // Removo o canal quando a tela é desmontada para não deixar uma escuta aberta.
@@ -53,23 +59,22 @@ export default function App() {
       return Alert.alert('Atenção', 'Preencha o título e a mensagem.');
     }
 
-    // Mostro o carregamento enquanto aguardo a gravação do aviso no banco.
+    // Valido o envio, mostro o carregamento e trato falhas de conexão.
     setLoading(true);
-    // Salvo a mensagem na coluna body e verifico o erro devolvido pelo Supabase.
-    const { error } = await supabase
-      .from('notifications')
-      .insert([{ title: cleanTitle, body: cleanMessage }]);
-    setLoading(false);
+    try {
+      const { error } = await supabase
+        .from('notifications')
+        .insert([{ title: cleanTitle, body: cleanMessage }]);
 
-    if (error) {
-      Alert.alert('Erro ao enviar', error.message);
-      return;
+      if (error) throw error;
+      Alert.alert('Sucesso', 'Notificação transmitida!');
+      setTitle('');
+      setMessage('');
+    } catch (error) {
+      Alert.alert('Erro ao enviar', error?.message || 'Não foi possível enviar o aviso.');
+    } finally {
+      setLoading(false);
     }
-
-    // Confirmo a gravação e limpo o formulário para o próximo aviso.
-    Alert.alert('Sucesso', 'Notificação transmitida!');
-    setTitle('');
-    setMessage('');
   };
 
   // Uso uma área rolável para reunir o status da conexão e os campos do formulário.
