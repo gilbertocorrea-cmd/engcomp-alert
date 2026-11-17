@@ -50,11 +50,10 @@ aplicativos abertos e conectados ao mesmo banco, sem atualizar a tela manualment
 | Interface e formulário | `● IMPLEMENTADO` |
 | Escuta de eventos INSERT | `● IMPLEMENTADA` |
 | Alertas em tela | `● IMPLEMENTADOS` |
-| URL e chave do Supabase | `◉ CONFIGURAÇÃO PENDENTE` |
+| Conexão com Supabase | `● CONFIGURADA` |
 | Integração nos celulares | `◉ TESTE PENDENTE` |
 
-> **CONNECTION STATUS:** mantenho os valores de exemplo da conexão. Ainda preciso
-> configurar o Supabase e validar o envio e o recebimento nos celulares.
+> **CONNECTION STATUS:** banco e conexão configurados. Falta executar no Expo Go e confirmar o recebimento em dois celulares.
 
 <a id="arquitetura"></a>
 
@@ -129,44 +128,36 @@ No Supabase, crio a tabela **`notifications`** e habilito o **Realtime** para el
 
 ### Configuro o acesso da atividade
 
-Mantenho o **RLS habilitado** e reproduzo a política da página 11 do material:
+O banco tem RLS habilitado e duas políticas específicas para demonstração:
+leitura (`SELECT`) e envio (`INSERT`) para usuários anônimos. A aplicação
+não tem permissões de edição ou exclusão de avisos. Essa configuração
+é apenas para o exercício; um sistema real precisa de autenticação
+e permissões por tipo de usuário.
 
-| Opção | Valor que utilizo |
-| :--- | :--- |
-| Nome | `Enabled read/write for all users` |
-| Comportamento | `Permissive` |
-| Comando | `ALL` |
-| Papel | `public` |
-| Expressão USING | `true` |
-| Expressão WITH CHECK | `true` |
-
-Com essa política, permito acesso amplo à tabela no exemplo da aula. Não separo
-os usuários por autenticação nesta versão.
+A tabela também limita o título a 150 caracteres e a mensagem a 2.000.
 
 ### Conecto meu aplicativo
 
-Em [`src/services/supabase.js`](src/services/supabase.js), substituo os dois
-valores de exemplo pelos dados do meu projeto:
+O arquivo [`src/services/supabase.js`](src/services/supabase.js) já utiliza
+a URL e a chave pública do Supabase. A chave é pública por definição,
+não concede permissões administrativas e continua sujeita às regras RLS.
 
-```js
-const supabaseUrl = 'SUA_URL_DO_SUPABASE';
-const supabaseKey = 'SUA_CHAVE_ANON_PUBLICA';
-```
+Para usar outro projeto, configure `EXPO_PUBLIC_SUPABASE_URL` e
+`EXPO_PUBLIC_SUPABASE_ANON_KEY` em um arquivo `.env` local,
+seguindo o [`.env.example`](.env.example). Nunca use `service_role` no app.
 
-Uso a **chave anon pública** no aplicativo. Mantenho a chave secreta de
-administração fora do código. Nesta implementação, preencho as constantes
-diretamente; ainda não faço a leitura de um arquivo `.env`.
 
 <a id="execucao"></a>
 
 ## `BOOT SEQUENCE // EXECUÇÃO LOCAL`
 
-Para executar, preciso de **Node.js com npm**, **Expo Go no celular** e do
-**projeto Supabase configurado**. A partir da pasta que contém `projnot`, entro
-no aplicativo e instalo as dependências:
+Para executar, preciso de **Node.js com npm** e **Expo Go no celular**.
+O Supabase da atividade já está configurado. Entro na pasta clonada
+(`engcomp-alert`) e instalo as dependências:
 
 ```bash
-cd projnot
+git clone https://github.com/gilbertocorrea-cmd/engcomp-alert.git
+cd engcomp-alert
 npm install
 ```
 
@@ -192,8 +183,8 @@ Uso este roteiro para conferir o comportamento após configurar a conexão:
 - [ ] Abro o aplicativo em dois celulares conectados ao mesmo projeto Supabase.
 - [ ] Envio um aviso por um celular e verifico sua chegada no outro sem atualizar a tela.
 
-Ainda não marco esses testes como concluídos: preciso validar a integração
-com uma conexão real e os dispositivos.
+O banco, as políticas de acesso e o Realtime já foram configurados.
+Os testes com dois celulares continuam pendentes de validação presencial.
 
 <a id="escopo"></a>
 
@@ -236,6 +227,6 @@ FATEC
 
 Exploro a conexão entre interface, dados e eventos em tempo real.
 
-**◉ INTEGRAÇÃO: CONFIGURAÇÃO PENDENTE**
+**◉ INTEGRAÇÃO: BANCO CONFIGURADO — TESTE NO CELULAR PENDENTE**
 
 </div>
